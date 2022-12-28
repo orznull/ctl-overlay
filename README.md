@@ -4,6 +4,8 @@ Player overlay used for Collegiate Tetris League crew battles. Displays player a
 
 https://user-images.githubusercontent.com/70501945/209768002-cb38f0e3-e00d-42d2-b8a2-677cef22ef78.mp4
 
+(phone video because I use OBS to record so how I record obs...)
+
 # How to use
 
 ## Scene Setup
