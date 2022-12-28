@@ -2,7 +2,7 @@
 
 Player overlay used for Collegiate Tetris League crew battles. Displays player avatars in a "player select" scene, stages two players once teams have picked who they are sending in for a "players chosen" scene, and moves the players to the corners during the game.
 
-![See it in action here](https://i.imgur.com/qmUAqLQ.mp4) (phone video because I use OBS to record so how I record obs...)
+https://i.imgur.com/qmUAqLQ.mp4
 
 # How to use
 
