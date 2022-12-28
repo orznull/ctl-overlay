@@ -1,38 +1,111 @@
-.App {
+:root {
+  --ease: 2s cubic-bezier( 0.9, 0, 0.1, 1);
+  --default-icon-size: 150px;
+}
+main {
+  max-width: 1920px;
+  max-height: 1080px;
+  min-width: 1920px;
+  min-height: 1080px;
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+  /* set for testing */
+  /*background-color: #555;*/
+}
+
+.player-icon {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items:center;
+  justify-content: space-around;
+  width: var(--default-icon-size);
+  height: var(--default-icon-size);
+  transition: top var(--ease),
+              left var(--ease),
+              right var(--ease),
+              bottom var(--ease),
+              width var(--ease),
+              height var(--ease);
+  
+}
+.player-icon span {
+  width: 100%;
   text-align: center;
+  background-color: blue;
+  font-size: 1vw;
+}
+.player-icon-img {
+  margin:0;
+  padding:0;
+  width: 70%;
+  height:70%;
+  border-style: solid;
+  border-style: solid;
+  
+  padding: 0px;
+  border-width: 3px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/* config styles */
+
+.config-container {
+  max-width: 500px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.player-config {
+  display: flex;
+  justify-content: space-between;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.player-row {
+  display: flex;
+}
+.player-row-team-2 {
+  flex-direction: row-reverse;
+}
+.player-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.save-button {
+  margin: 10px auto 10px auto;
+  width: 80%;
+  display: block;
+  padding: 5px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 300px) {
+  .config-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  to {
-    transform: rotate(360deg);
+
+  .player-config {
+    display: block;
+    text-align: center;
+    padding: 10px;
+  }
+  .player-row {
+    /*display: flex;*/
+    display: block;
+  }
+  .player-row-team-2 {
+    /*
+    flex-direction: row-reverse;
+    */
+    display: block;
+  }
+  .player-col {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .save-button {
+    padding: 5px;
+    margin: 10px;
   }
 }
