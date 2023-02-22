@@ -40,7 +40,7 @@ const PlayerIcon = (props) => {
         <img className="player-icon-img" src={avatarUrl} style={{borderColor: teamColor}} /> :
         <div className="player-icon-img" style={{borderColor: teamColor}}></div>
       }
-      <svg
+      {/*<svg
         width="100%"
         height="100%"
         viewBox="0 0 500 75"
@@ -50,7 +50,13 @@ const PlayerIcon = (props) => {
           x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="75" fontWeight={"bold"}
           fill={teamColor}
         >{props.username}</text>
-      </svg>
+      </svg>*/}
+      <div class="label">
+        <span style={{
+          color:teamColor
+        }}>{props.username}</span>
+      </div>
+      
     </div>
   )
 }
