@@ -52,9 +52,18 @@ const PlayerIcon = (props) => {
         >{props.username}</text>
       </svg>*/}
       <div class="label">
-        <span style={{
-          color:teamColor
-        }}>{props.username}</span>
+        <svg
+          width="200%"
+          height="200%"
+          viewBox="0 0 1000 75"
+          preserveAspectRatio="xMinYMid meet"
+        >
+          <text
+            x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="75" fontWeight={"bold"}
+            fill={teamColor}
+          >{props.username}</text>
+        </svg>
+        
       </div>
       
     </div>
