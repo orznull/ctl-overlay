@@ -139,6 +139,7 @@ const PlayerOverlay = () => {
     console.log('transitioning to game scene');
     setPlayerPositions(newPlayerPositions);
   }
+  console.log(selectedPlayerIndices)
   return (
     <div>
         <main>
@@ -148,6 +149,7 @@ const PlayerOverlay = () => {
                 teamColor={teamColors[teamIndex]}
                 username={player}
                 pos={playerPositions[teamIndex][playerIndex]}
+                selected={selectedPlayerIndices[teamIndex] == playerIndex && scene == "players-chosen"}
               />
             )
           )}

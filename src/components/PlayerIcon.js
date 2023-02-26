@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import LeagueStats from './LeagueStats';
 
 const PlayerIcon = (props) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [leagueStats, setLeagueStats] = useState(null);
   useEffect(() => {
     (async () => {
       if (!props.username)
@@ -14,6 +16,7 @@ const PlayerIcon = (props) => {
         return;
       }
       const u = res.data.user;
+      setLeagueStats(u.league);
       if (u.avatar_revision) {
         setAvatarUrl(`https://tetr.io/user-content/avatars/${ u._id }.jpg?rv=${ u.avatar_revision }`);
       } else if (u.role === 'banned') {
@@ -65,7 +68,7 @@ const PlayerIcon = (props) => {
         </svg>
         
       </div>
-      
+      <LeagueStats leagueStats={leagueStats} show={props.selected} />
     </div>
   )
 }

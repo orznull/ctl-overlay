@@ -1,3 +1,18 @@
+@font-face {
+	font-family: 'C';
+	font-weight: 500;
+	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cr.ttf');
+}
+@font-face {
+	font-family: 'C';
+	font-weight: 900;
+	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cb.ttf');
+}
+@font-face {
+	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/hun2.ttf?v=6');
+	font-family: 'HUN';
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body, html {
   font-family: 'Roboto', sans-serif;
@@ -16,7 +31,7 @@ main {
 
   position: relative;
   /* set for testing */
-  /*background-color: #555;*/
+  background-color: #555;
 }
 
 .player-icon {
@@ -58,10 +73,72 @@ main {
   height:70%;
   border-style: solid;
   border-style: solid;
-  
   padding: 0px;
   border-width: 3px;
 }
+
+/* league stat style */
+.league-stats {
+  position:absolute;
+  font-family: 'HUN';
+  color: white;
+  font-size: 50px;
+  width: 300px;
+  overflow: hidden;
+  top:0px;
+  transition: top 1s;
+}
+.league-stats .line {
+  height: 0px;
+  width: 0px;
+  border-top: solid 1px white;
+  transition: width 1s;
+  margin:auto;
+  margin-bottom: 10px;
+}
+.rank-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-shadow: 0 2px #ddd,0 0 16px #fff4;
+  margin: .15em;
+  margin-bottom: 0;
+  height: 60px;
+
+  clip-path: inset(65px 0px 0px 0px);
+  transition: clip-path 1s;  
+}
+.rank {
+  width: 50px;
+  height: 50px;
+}
+.rating {
+  font-weight: 800;
+}
+.tr-label {
+  font-size: 40px;
+  margin-left: 5px;
+}
+
+.stats {
+  display: flex;
+  width: 100%;
+  font-size: 20px;
+  justify-content: center;
+
+  clip-path: inset(0px 0px 65px 0px);
+  transition: clip-path 1s;
+}
+.stats div {
+  text-align: center;
+  margin-left:5px;
+  margin-right:5px;
+}
+.stats div span {
+  font-weight: 800;
+}
+
 
 
 /* config styles */
