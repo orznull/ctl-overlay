@@ -148,6 +148,7 @@ const PlayerOverlay = () => {
               pos={playerPositions[teamIndex][playerIndex]}
               selected={selectedPlayerIndices[teamIndex] == playerIndex && scene == "players-chosen"}
               eliminated={player.eliminated}
+              blurb={player.blurb}
             />
           )
         )}

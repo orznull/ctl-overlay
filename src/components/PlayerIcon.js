@@ -69,6 +69,15 @@ const PlayerIcon = (props) => {
 
       </div>
       <LeagueStats leagueStats={leagueStats} show={props.selected} />
+      <div className="blurb" style={{
+        opacity: props.selected ? 1 : 0,
+        clipPath: props.selected ? 'inset(0px 0px 0px 0px)' : 'inset(0px 0px 100% 0px)',
+        transitionDelay: props.selected ? "1s" : undefined,
+        borderBottom: `solid 5px ${teamColor}`,
+        borderTop: `solid 5px ${teamColor}`,
+      }}>
+        {props.blurb}
+      </div>
     </div >
   )
 }

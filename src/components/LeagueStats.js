@@ -5,17 +5,20 @@ const LeagueStats = (props) => {
     (async () => {
       if (!props.leagueStats)
         return;
-      
+
     })();
   }, [props.leagueStats])
-  
+
   if (!props.leagueStats)
     return;
 
-  const containerStyle = { top: props.show? -120 : -68}
-  const rankClippingStyle = { clipPath: props.show? 'inset(0px 0px 0px 0px)':'inset(65px 0px 0px 0px)' };
-  const statsClippingStyle = { clipPath: props.show? 'inset(0px 0px 0px 0px)':'inset(0px 0px 65px 0px)' };
-  const lineStyle = { width: props.show? '100%': 0}
+  const containerStyle = { top: props.show ? -120 : -68, transitionDelay: props.show ? "0.5s" : undefined, }
+  const rankClippingStyle = {
+    clipPath: props.show ? 'inset(0px 0px 0px 0px)' : 'inset(65px 0px 0px 0px)',
+    transitionDelay: props.show ? "0.5s" : undefined,
+  };
+  const statsClippingStyle = { clipPath: props.show ? 'inset(0px 0px 0px 0px)' : 'inset(0px 0px 65px 0px)', transitionDelay: props.show ? "0.5s" : undefined, };
+  const lineStyle = { width: props.show ? '100%' : 0, transitionDelay: props.show ? "0.5s" : undefined, }
 
   return (
     <div class='league-stats' style={containerStyle}>
@@ -26,7 +29,7 @@ const LeagueStats = (props) => {
           <span class='tr-label'>TR</span>
         </div>
       </div>
-      <div class='line' style={lineStyle}/>
+      <div class='line' style={lineStyle} />
       <div style={statsClippingStyle} class='stats'>
         <div><span>{props.leagueStats.apm.toFixed(2)}</span>APM</div>
         <div><span>{props.leagueStats.pps.toFixed(2)}</span> PPS</div>

@@ -15,6 +15,15 @@ const PlayerOverlayConfig = () => {
     setPlayerData(newPlayers);
   }
 
+  const changePlayerBlurb = (teamIndex, playerIndex, blurb) => {
+    const newPlayers = [...playerData].map(e => [...e]);
+    newPlayers[teamIndex][playerIndex] = {
+      ...newPlayers[teamIndex][playerIndex],
+      blurb,
+    };
+    setPlayerData(newPlayers);
+  }
+
   const eliminatePlayer = (teamIndex, playerIndex, eliminated) => {
 
     const newPlayers = [...playerData].map(e => [...e]);
@@ -75,6 +84,12 @@ const PlayerOverlayConfig = () => {
             <strong>Team {teamIndex + 1}</strong>
             {players.map((player, playerIndex) =>
               <div className={`player-row player-row-team-${teamIndex + 1}`} key={`${playerIndex} ${teamIndex}`}>
+                <input
+                  onChange={e => changePlayerBlurb(teamIndex, playerIndex, e.target.value)}
+                  value={player?.blurb ?? ""}
+                  placeholder={`Team ${teamIndex + 1} Player ${playerIndex + 1} blurb`}
+                  className="username-input"
+                />
                 <input
                   type="checkbox" onChange={e => eliminatePlayer(teamIndex, playerIndex, e.target.checked)}
                   name={`team${teamIndex}`}
