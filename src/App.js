@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
-import PlayerOverlay from './pages/PlayerOverlay';
-import PlayerOverlayConfig from './pages/PlayerOverlayConfig';
+import PlayerOverlay from './screens/PlayerOverlay';
+import PlayerOverlayConfig from './screens/PlayerOverlayConfig';
 const App = () => {
   return (
     <HashRouter>

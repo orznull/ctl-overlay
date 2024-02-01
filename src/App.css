@@ -1,26 +1,32 @@
 @font-face {
-	font-family: 'C';
-	font-weight: 500;
-	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cr.ttf');
+  font-family: 'C';
+  font-weight: 500;
+  src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cr.ttf');
 }
+
 @font-face {
-	font-family: 'C';
-	font-weight: 900;
-	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cb.ttf');
+  font-family: 'C';
+  font-weight: 900;
+  src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/cb.ttf');
 }
+
 @font-face {
-	src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/hun2.ttf?v=6');
-	font-family: 'HUN';
+  src: url('https://corsproxy.io/?https://ch.tetr.io/res/font/hun2.ttf?v=6');
+  font-family: 'HUN';
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-body, html {
+
+body,
+html {
   font-family: 'Roboto', sans-serif;
 }
+
 :root {
-  --ease: 2s cubic-bezier( 0.9, 0, 0.1, 1);
+  --ease: 2s cubic-bezier(0.9, 0, 0.1, 1);
   --default-icon-size: 150px;
 }
+
 main {
   max-width: 1920px;
   max-height: 1080px;
@@ -38,84 +44,94 @@ main {
   display: flex;
   position: absolute;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: space-around;
   width: var(--default-icon-size);
   height: var(--default-icon-size);
   transition: top var(--ease),
-              left var(--ease),
-              right var(--ease),
-              bottom var(--ease),
-              width var(--ease),
-              height var(--ease);
+    left var(--ease),
+    right var(--ease),
+    bottom var(--ease),
+    width var(--ease),
+    height var(--ease);
   /*background-color: green;*/
-  
-  
+
+
 }
+
 .player-icon .label {
-  position:relative;
+  position: relative;
   width: 100%;
   height: 50%;
   /*background-color:blue;*/
 }
+
 .player-icon .label svg {
-  position:absolute;
+  position: absolute;
   /*background-color::red;*/
   top: -50%;
   left: 50%;
   transform: translate(-50%);
-  
+  transition: opacity 0.4s;
+
 }
+
 .player-icon-img {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   width: 70%;
-  height:70%;
+  height: 70%;
   border-style: solid;
   border-style: solid;
   padding: 0px;
   border-width: 3px;
+  transition: opacity 0.4s;
 }
 
 /* league stat style */
 .league-stats {
-  position:absolute;
+  position: absolute;
   font-family: 'HUN';
   color: white;
   font-size: 50px;
   width: 300px;
   overflow: hidden;
-  top:0px;
+  top: 0px;
   transition: top 1s;
 }
+
 .league-stats .line {
   height: 0px;
   width: 0px;
   border-top: solid 1px white;
   transition: width 1s;
-  margin:auto;
+  margin: auto;
   margin-bottom: 10px;
 }
+
 .rank-rating {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  text-shadow: 0 2px #ddd,0 0 16px #fff4;
+  text-shadow: 0 2px #ddd, 0 0 16px #fff4;
   margin: .15em;
   margin-bottom: 0;
   height: 60px;
 
   clip-path: inset(65px 0px 0px 0px);
-  transition: clip-path 1s;  
+  transition: clip-path 1s;
 }
+
 .rank {
   width: 50px;
   height: 50px;
 }
+
 .rating {
   font-weight: 800;
 }
+
 .tr-label {
   font-size: 40px;
   margin-left: 5px;
@@ -130,11 +146,13 @@ main {
   clip-path: inset(0px 0px 65px 0px);
   transition: clip-path 1s;
 }
+
 .stats div {
   text-align: center;
-  margin-left:5px;
-  margin-right:5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
+
 .stats div span {
   font-weight: 800;
 }
@@ -151,22 +169,27 @@ main {
   display: flex;
   justify-content: space-between;
 }
+
 .player-row {
   display: flex;
 }
+
 .player-row-team-2 {
   flex-direction: row-reverse;
 }
+
 .player-col {
   display: flex;
   flex-direction: column;
 }
+
 .save-button {
   margin: 10px auto 10px auto;
   width: 80%;
   display: block;
   padding: 5px;
 }
+
 @media screen and (max-width: 300px) {
   .config-container {
     display: flex;
@@ -179,22 +202,26 @@ main {
     text-align: center;
     padding: 10px;
   }
+
   .player-row {
     /*display: flex;*/
     display: block;
   }
+
   .player-row-team-2 {
     /*
     flex-direction: row-reverse;
     */
     display: block;
   }
+
   .player-col {
     align-items: center;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
   }
+
   .save-button {
     padding: 5px;
     margin: 10px;

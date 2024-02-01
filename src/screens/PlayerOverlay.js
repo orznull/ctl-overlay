@@ -4,8 +4,8 @@ import Positions from '../config/Positions'
 import { useInterval } from '../hooks/useInterval';
 
 const PlayerOverlay = () => {
-  const [players, setPlayers] = useState([["","","","",""],["","","","",""]]);
-  const [selectedPlayerIndices, setSelectedPlayerIndices] = useState([-1,-1]);
+  const [playerData, setPlayerData] = useState([[{}, {}, {}, {}, {}], [{}, {}, {}, {}, {}]]);
+  const [selectedPlayerIndices, setSelectedPlayerIndices] = useState([-1, -1]);
   const [teamColors, setTeamColors] = useState(["", ""]);
   const [playerPositions, setPlayerPositions] = useState(Positions.DEFAULT_POSITIONS);
   const [scene, setScene] = useState("");
@@ -13,13 +13,13 @@ const PlayerOverlay = () => {
   var int = useInterval(() => {
     // there is no emitted event to send 
     if (window.obsstudio) {
-      window.obsstudio.getCurrentScene(function(data) {
-        if(data.name =="player-select") {
+      window.obsstudio.getCurrentScene(function (data) {
+        if (data.name == "player-select") {
           transitionToPlayerSelectScene()
-        } else if (data.name=="players-chosen") {
+        } else if (data.name == "players-chosen") {
           console.log("wah");
           transitionToSelectedPlayerScene();
-        } else if (data.name=="game-scene") {
+        } else if (data.name == "game-scene") {
           transitionToGameScene();
         } else {
           transitionPlayersOut();
@@ -30,33 +30,29 @@ const PlayerOverlay = () => {
 
   useEffect(() => {
     loadFromLocalStorage();
-    
-    //unfortunately obs browser also does not fire window storage events...
+
     const onStorage = () => {
       loadFromLocalStorage();
     }
     window.addEventListener('storage', onStorage);
-    
-    //var int2 = setInterval(loadFromLocalStorage, 2000);
 
     return () => {
-      clearInterval(int);
-      //clearInterval(int2);
-      window.removeEventListener('storage',onStorage);
+      window.removeEventListener('storage', onStorage);
     }
   }, [])
 
   const loadFromLocalStorage = () => {
     try {
       const {
-        players: newPlayers,
+        playerData: newPlayerData,
         selectedPlayerIndices: newSelectedPlayers,
-        teamColors: newTeamColors}= JSON.parse(localStorage.getItem('ctl-player-overlay-config'));
-      setPlayers([...newPlayers]);
-      setSelectedPlayerIndices([...newSelectedPlayers]);
-      setTeamColors([...newTeamColors]);
+        teamColors: newTeamColors
+      } = JSON.parse(localStorage.getItem('ctl-player-overlay-config'));
+      setPlayerData(playerData => newPlayerData ?? playerData);
+      setSelectedPlayerIndices(selectedIndices => newSelectedPlayers ?? selectedIndices);
+      setTeamColors(teamColors => newTeamColors ?? teamColors);
       console.log("successfully fetched from localstorage");
-    } catch(e) {
+    } catch (e) {
       console.log('failed to fetch from localstorage');
     }
   }
@@ -76,14 +72,14 @@ const PlayerOverlay = () => {
     }
     setScene(scene => "players-chosen");
     const newPlayerPositions = [];
-    for (var teamIndex = 0; teamIndex < players.length; teamIndex++) {
+    for (var teamIndex = 0; teamIndex < playerData.length; teamIndex++) {
       if (selectedPlayerIndices[teamIndex] < 0 || selectedPlayerIndices[teamIndex] >= 5) {
         newPlayerPositions.push(Positions.DEFAULT_POSITIONS[teamIndex]);
         continue;
       }
       newPlayerPositions.push([]);
       var benchIndex = 0;
-      for (var playerIndex = 0; playerIndex < players[teamIndex].length; playerIndex++) {
+      for (var playerIndex = 0; playerIndex < playerData[teamIndex].length; playerIndex++) {
         if (playerIndex == selectedPlayerIndices[teamIndex]) {
           newPlayerPositions[teamIndex].push(Positions.FOCUSED_PLAYER_SELECTED_POSITIONS[teamIndex]);
         } else {
@@ -108,7 +104,7 @@ const PlayerOverlay = () => {
     if (scene == "players-out") {
       return;
     }
-    setScene(scene =>"players-out");
+    setScene(scene => "players-out");
     setPlayerPositions(Positions.ALL_HIDDEN_GAME_POSITIONS);
     console.log("transitioning players out")
   }
@@ -117,16 +113,16 @@ const PlayerOverlay = () => {
     if (scene == "game-scene" && !force) {
       return;
     }
-    setScene(scene =>"game-scene");
+    setScene(scene => "game-scene");
     const newPlayerPositions = [];
-    for (var teamIndex = 0; teamIndex < players.length; teamIndex++) {
+    for (var teamIndex = 0; teamIndex < playerData.length; teamIndex++) {
       if (selectedPlayerIndices[teamIndex] < 0 || selectedPlayerIndices[teamIndex] >= 5) {
         newPlayerPositions.push(Positions.ALL_HIDDEN_GAME_POSITIONS[teamIndex]);
         continue;
       }
       newPlayerPositions.push([]);
       var benchIndex = 0;
-      for (var playerIndex = 0; playerIndex < players[teamIndex].length; playerIndex++) {
+      for (var playerIndex = 0; playerIndex < playerData[teamIndex].length; playerIndex++) {
         if (playerIndex == selectedPlayerIndices[teamIndex]) {
           newPlayerPositions[teamIndex].push(Positions.FOCUSED_PLAYER_GAME_POSITIONS[teamIndex]);
         } else {
@@ -135,25 +131,28 @@ const PlayerOverlay = () => {
         }
       }
     }
-    
+
     console.log('transitioning to game scene');
     setPlayerPositions(newPlayerPositions);
   }
-  console.log(selectedPlayerIndices)
+
   return (
     <div>
-        <main>
-          {players.map((team, teamIndex) => 
-            team.map((player, playerIndex) => 
-              <PlayerIcon
-                teamColor={teamColors[teamIndex]}
-                username={player}
-                pos={playerPositions[teamIndex][playerIndex]}
-                selected={selectedPlayerIndices[teamIndex] == playerIndex && scene == "players-chosen"}
-              />
-            )
-          )}
-        </main>
+      <main>
+        {playerData.map((team, teamIndex) =>
+          team.map((player, playerIndex) =>
+            <PlayerIcon
+              teamColor={teamColors[teamIndex]}
+              username={player.name}
+
+              pos={playerPositions[teamIndex][playerIndex]}
+              selected={selectedPlayerIndices[teamIndex] == playerIndex && scene == "players-chosen"}
+              eliminated={player.eliminated}
+            />
+          )
+        )}
+      </main>
+      {/* Testing buttons that should be off screen. */}
       <button onClick={transitionToPlayerSelectScene}>player select scene</button>
       <button onClick={transitionToSelectedPlayerScene}>player chosen scene</button>
       <button onClick={transitionToGameScene}>game scene</button>
