@@ -189,6 +189,11 @@ main {
   display: flex;
 }
 
+.player-row-text-input {
+  flex: 1;
+}
+
+
 .player-row-team-2 {
   flex-direction: row-reverse;
 }
@@ -196,6 +201,13 @@ main {
 .player-col {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  align-items: stretch;
+  padding: 10px;
+}
+
+.player-col h3 {
+  text-align: center;
 }
 
 .save-button {
@@ -210,24 +222,13 @@ main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
   }
 
   .player-config {
     display: block;
     text-align: center;
     padding: 10px;
-  }
-
-  .player-row {
-    /*display: flex;*/
-    display: block;
-  }
-
-  .player-row-team-2 {
-    /*
-    flex-direction: row-reverse;
-    */
-    display: block;
   }
 
   .player-col {

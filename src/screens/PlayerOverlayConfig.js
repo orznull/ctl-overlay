@@ -6,6 +6,9 @@ const PlayerOverlayConfig = () => {
   const [selectedPlayerIndices, setSelectedPlayerIndices] = useState([-1, -1]);
   const [teamColors, setTeamColors] = useState(["", ""]);
 
+
+  const [showPlayerBlurbs, setShowPlayerBlurbs] = useState({ 0: false, 1: false });
+
   const changePlayerName = (teamIndex, playerIndex, name) => {
     const newPlayers = [...playerData].map(e => [...e]);
     newPlayers[teamIndex][playerIndex] = {
@@ -81,15 +84,10 @@ const PlayerOverlayConfig = () => {
       <div className="player-config">
         {playerData.map((players, teamIndex) =>
           <div className={`player-col player-col-team-${teamIndex + 1}`}>
-            <strong>Team {teamIndex + 1}</strong>
+            <h3>Team {teamIndex + 1}</h3>
             {players.map((player, playerIndex) =>
               <div className={`player-row player-row-team-${teamIndex + 1}`} key={`${playerIndex} ${teamIndex}`}>
-                <input
-                  onChange={e => changePlayerBlurb(teamIndex, playerIndex, e.target.value)}
-                  value={player?.blurb ?? ""}
-                  placeholder={`Team ${teamIndex + 1} Player ${playerIndex + 1} blurb`}
-                  className="username-input"
-                />
+
                 <input
                   type="checkbox" onChange={e => eliminatePlayer(teamIndex, playerIndex, e.target.checked)}
                   name={`team${teamIndex}`}
@@ -99,7 +97,7 @@ const PlayerOverlayConfig = () => {
                   onChange={e => changePlayerName(teamIndex, playerIndex, e.target.value)}
                   value={player?.name ?? ""}
                   placeholder={`Team ${teamIndex + 1} Player ${playerIndex + 1} name`}
-                  className="username-input"
+                  className="player-row-text-input"
                 />
                 <input
                   type="radio" onChange={e => setSelectedPlayer(teamIndex, playerIndex)}
@@ -108,7 +106,27 @@ const PlayerOverlayConfig = () => {
                 />
               </div>
             )}
-            <button onClick={() => setSelectedPlayer(teamIndex, -1)}>Clear Selected Player</button>
+
+            <button style={{
+              marginTop: 5,
+              marginBottom: 5,
+            }} onClick={() => setSelectedPlayer(teamIndex, -1)}>Clear Selected Player</button>
+
+            <button
+              onClick={() => setShowPlayerBlurbs(showBlurbs => ({
+                ...showBlurbs,
+                [teamIndex]: !showBlurbs[teamIndex]
+              }))}
+            >{showPlayerBlurbs[teamIndex] ? "Hide" : "Show"} player blurbs</button>
+            {showPlayerBlurbs[teamIndex] && players.map((player, playerIndex) =>
+              <input
+                onChange={e => changePlayerBlurb(teamIndex, playerIndex, e.target.value)}
+                value={player?.blurb ?? ""}
+                placeholder={`Team ${teamIndex + 1} Player ${playerIndex + 1} blurb`}
+                className="player-row-text-input"
+              />
+            )}
+
             <span>Team Color Hex:</span>
             <input
               placeholder={`Team ${teamIndex + 1} Color Hex`}
