@@ -9,20 +9,22 @@ const PlayerIcon = (props) => {
       if (!props.username)
         return;
 
-      const response = await fetch(`https://corsproxy.io/?https://ch.tetr.io/api/users/${props.username.toLowerCase()}`);
-      const res = await response.json();
-      if (!res.success) {
+      const leagueResponse = await fetch(`https://corsproxy.io/?url=https://ch.tetr.io/api/users/${props.username.toLowerCase()}/summaries/league`);
+      const userResponse = await fetch(`https://corsproxy.io/?url=https://ch.tetr.io/api/users/${props.username.toLowerCase()}`);
+      const leagueRes = await leagueResponse.json();
+      const userRes = await userResponse.json();
+      if (!leagueRes.success || !userRes.success) {
         setAvatarUrl(null);
         return;
       }
-      const u = res.data.user;
-      setLeagueStats(u.league);
-      if (u.avatar_revision) {
-        setAvatarUrl(`https://tetr.io/user-content/avatars/${u._id}.jpg?rv=${u.avatar_revision}`);
-      } else if (u.role === 'banned') {
+      const user = userRes.data;
+      setLeagueStats(leagueRes.data);
+      if (user.avatar_revision) {
+        setAvatarUrl(`https://tetr.io/user-content/avatars/${user._id}.jpg?rv=${user.avatar_revision}`);
+      } else if (user.role === 'banned') {
         setAvatarUrl('https://tetr.io/res/avatar-banned.png');
-      } else if (u.role !== 'anon') {
-        setAvatarUrl(`data:image/svg+xml;base64,${new window.Identicon(window.MD5(u._id), {
+      } else if (user.role !== 'anon') {
+        setAvatarUrl(`data:image/svg+xml;base64,${new window.Identicon(window.MD5(user._id), {
           background: [0x08, 0x0A, 0x06, 255],
           margin: 0.15,
           size: 120,
@@ -40,7 +42,7 @@ const PlayerIcon = (props) => {
   return (
     <div className="player-icon" style={style}>
       {avatarUrl ?
-        <img className="player-icon-img" src={avatarUrl} style={{ borderColor: teamColor, opacity: props.eliminated ? 0.3 : 1 }} /> :
+        <img className="player-icon-img" alt="icon" src={avatarUrl} style={{ borderColor: teamColor, opacity: props.eliminated ? 0.3 : 1 }} /> :
         <div className="player-icon-img" style={{ borderColor: teamColor }}></div>
       }
       {/*<svg

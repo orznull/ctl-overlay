@@ -14,12 +14,11 @@ const PlayerOverlay = () => {
     // there is no emitted event to send 
     if (window.obsstudio) {
       window.obsstudio.getCurrentScene(function (data) {
-        if (data.name == "player-select") {
+        if (data.name === "player-select") {
           transitionToPlayerSelectScene()
-        } else if (data.name == "players-chosen") {
-          console.log("wah");
+        } else if (data.name === "players-chosen") {
           transitionToSelectedPlayerScene();
-        } else if (data.name == "game-scene") {
+        } else if (data.name === "game-scene") {
           transitionToGameScene();
         } else {
           transitionPlayersOut();
@@ -58,16 +57,15 @@ const PlayerOverlay = () => {
   }
 
   useEffect(() => {
-    if (scene == "players-chosen") {
-      console.log("bah");
+    if (scene === "players-chosen") {
       transitionToSelectedPlayerScene(true);
-    } else if (scene == "game-scene") {
+    } else if (scene === "game-scene") {
       transitionToGameScene(true);
     }
   }, [selectedPlayerIndices]);
 
   const transitionToSelectedPlayerScene = force => {
-    if (scene == "players-chosen" && !force) {
+    if (scene === "players-chosen" && !force) {
       return;
     }
     setScene(scene => "players-chosen");
@@ -80,7 +78,7 @@ const PlayerOverlay = () => {
       newPlayerPositions.push([]);
       var benchIndex = 0;
       for (var playerIndex = 0; playerIndex < playerData[teamIndex].length; playerIndex++) {
-        if (playerIndex == selectedPlayerIndices[teamIndex]) {
+        if (playerIndex === selectedPlayerIndices[teamIndex]) {
           newPlayerPositions[teamIndex].push(Positions.FOCUSED_PLAYER_SELECTED_POSITIONS[teamIndex]);
         } else {
           newPlayerPositions[teamIndex].push(Positions.BENCH_PLAYER_SELECTED_POSITIONS[teamIndex][benchIndex]);
@@ -92,7 +90,7 @@ const PlayerOverlay = () => {
     console.log("transitioning to player chosen screen")
   }
   const transitionToPlayerSelectScene = e => {
-    if (scene == "player-select") {
+    if (scene === "player-select") {
       return;
     }
     setScene(scene => "player-select");
@@ -101,7 +99,7 @@ const PlayerOverlay = () => {
   }
 
   const transitionPlayersOut = () => {
-    if (scene == "players-out") {
+    if (scene === "players-out") {
       return;
     }
     setScene(scene => "players-out");
@@ -110,7 +108,7 @@ const PlayerOverlay = () => {
   }
 
   const transitionToGameScene = force => {
-    if (scene == "game-scene" && !force) {
+    if (scene === "game-scene" && !force) {
       return;
     }
     setScene(scene => "game-scene");
@@ -123,7 +121,7 @@ const PlayerOverlay = () => {
       newPlayerPositions.push([]);
       var benchIndex = 0;
       for (var playerIndex = 0; playerIndex < playerData[teamIndex].length; playerIndex++) {
-        if (playerIndex == selectedPlayerIndices[teamIndex]) {
+        if (playerIndex === selectedPlayerIndices[teamIndex]) {
           newPlayerPositions[teamIndex].push(Positions.FOCUSED_PLAYER_GAME_POSITIONS[teamIndex]);
         } else {
           newPlayerPositions[teamIndex].push(Positions.BENCH_PLAYER_GAME_POSITIONS[teamIndex][benchIndex]);
@@ -146,7 +144,7 @@ const PlayerOverlay = () => {
               username={player.name}
 
               pos={playerPositions[teamIndex][playerIndex]}
-              selected={selectedPlayerIndices[teamIndex] == playerIndex && scene == "players-chosen"}
+              selected={selectedPlayerIndices[teamIndex] === playerIndex && scene === "players-chosen"}
               eliminated={player.eliminated}
               blurb={player.blurb}
             />

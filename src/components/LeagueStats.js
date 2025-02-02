@@ -25,15 +25,15 @@ const LeagueStats = (props) => {
       <div style={rankClippingStyle} class='rank-rating'>
         <img class='rank' src={`https://tetr.io/res/league-ranks/${props.leagueStats.rank}.png`} />
         <div class='rating'>
-          {props.leagueStats.rating.toFixed(0)}
+          {props.leagueStats.tr?.toFixed(0)}
           <span class='tr-label'>TR</span>
         </div>
       </div>
       <div class='line' style={lineStyle} />
       <div style={statsClippingStyle} class='stats'>
-        <div><span>{props.leagueStats.apm.toFixed(2)}</span>APM</div>
-        <div><span>{props.leagueStats.pps.toFixed(2)}</span> PPS</div>
-        <div><span>{props.leagueStats.vs.toFixed(2)}</span> VS</div>
+        <div><span>{props.leagueStats.apm?.toFixed(2)}</span>APM</div>
+        <div><span>{props.leagueStats.pps?.toFixed(2)}</span> PPS</div>
+        <div><span>{props.leagueStats.vs?.toFixed(2)}</span> VS</div>
       </div>
     </div>
   )
